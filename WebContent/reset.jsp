@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>mup's quiz</title>
 	<script type="text/javascript">
-		location.href = "./quiz";
+		location.href = "/mupquiz";
 	</script>
 </head>
 <body>

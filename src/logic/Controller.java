@@ -5,6 +5,9 @@ import java.util.Locale;
 
 import javax.servlet.ServletException;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import data.dao.QuizItemDao;
 import data.list.QuizItemList;
 import data.model.QuizItem;
@@ -25,19 +28,18 @@ public class Controller {
 		quizItemDao = new QuizItemDao();
 	}
 	
-	public static Controller getInstance() {
+	public static Controller getInstance()  throws ServletException {
 		if (instance == null) {
 			instance = new Controller();
+			instance.init();
 		}
 		
 		return instance;
 	}
 
 	public void init() throws ServletException {
-		if (isFirst()) {
-			loadFromDB();
-			quizItems.shuffle();
-		}
+		loadFromDB();
+		quizItems.shuffle();
 	}
 	
 	public void loadFromDB() throws ServletException {
@@ -52,9 +54,15 @@ public class Controller {
 	public void submitClicked(String userAw) {
 		userAw = userAw.toLowerCase(Locale.ROOT);
 		String correctAw = getQuizItem().getAnswer().toLowerCase(Locale.ROOT);
+		System.out.println(userAw + ", " + correctAw);
 		isCorrect = correctAw.equals(userAw);
 		if (isCorrect) score++;
 		questionNumber++;
+	}
+
+	public void softReset() {
+		questionNumber = 0;
+		score = 0;
 	}
 	
 	public void reset() {
@@ -95,5 +103,18 @@ public class Controller {
 	public boolean isFinished() {
 		return questionNumber >= maxQuestion;
 	}
-	
+
+	public String makeQuizSetINJsonString() {
+		String message;
+		JSONObject json = new JSONObject();
+		JSONArray array = new JSONArray();
+		for (int i=0; i<maxQuestion; i++)
+		{
+			array.put(getQuizItem(i).getQuestion());
+		}
+		json.put("quizSet", array);
+		
+		message = json.toString();
+		return message;
+	}
 }

@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,12 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import data.model.QuizItem;
 import logic.Controller;
 
-/**
- * Servlet implementation class GetQuiz
- */
 @WebServlet("/GetQuiz")
 public class GetQuiz extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,32 +19,33 @@ public class GetQuiz extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-    	System.out.println("mup init");
     	controller = Controller.getInstance();
-    	controller.init();
+//    	private BookDBAO bookDB;
+//        public void init() throws ServletException {
+//            bookDB = (BookDBAO)getServletContext().
+//                getAttribute("bookDB");
+//            if (bookDB == null) throw new
+//                UnavailableException("Couldn¡¯t get database.");
+//        }
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		QuizItem current = controller.getQuizItem(0);
-		System.out.println("mup get: " + controller.getCurrentQnNum() + ", " + current.getQuestion() + ", " + current.getAnswer());
+		String message = controller.makeQuizSetINJsonString();
+		controller.softReset();
+		
+		response.setContentType("application/json");
+		PrintWriter out = response.getWriter();
+		out.print(message);
+		out.flush();
+		
 		// Will be available as ${<string>} in JSP
-        request.setAttribute("quizItem1", controller.getQuizItem(-1));
-        request.setAttribute("quizItem2", current);
-        request.setAttribute("checked", controller.isCorrect());
-        request.setAttribute("first", controller.isFirst());
-        request.setAttribute("finished", controller.isFinished());
-        request.setAttribute("score", controller.getScore());
-        request.setAttribute("totalQn", controller.getTotalQuestions());
-        request.getRequestDispatcher("/quiz.jsp").forward(request, response);
+//        request.setAttribute("quizItem1", controller.getQuizItem(-1));
+//        request.setAttribute("quizItem2", current);
+//        request.setAttribute("first", controller.isFirst());
+//        request.setAttribute("finished", controller.isFinished());
+//        request.setAttribute("totalQn", controller.getTotalQuestions());
+//        response.sendRedirect("/mupquiz/quiz.jsp");
+//        request.getRequestDispatcher("/quiz.jsp").forward(request, response);
+//        response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-		
-		String aw = request.getParameter("answer");
-        System.out.println("mup post: " + aw);
-		controller.submitClicked(aw);
-		
-        doGet(request, response);
-    }
 }

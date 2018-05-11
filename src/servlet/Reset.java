@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import logic.Controller;
 
-/**
- * Servlet implementation class Reset
- */
 @WebServlet("/Reset")
 public class Reset extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,8 +17,7 @@ public class Reset extends HttpServlet {
 	private Controller controller;
 
     @Override
-    public void init() {
-    	System.out.println("mup init2");
+    public void init() throws ServletException {
     	controller = Controller.getInstance();
     }
 
