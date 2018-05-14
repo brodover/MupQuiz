@@ -1,4 +1,4 @@
-INSERT INTO mupquiz.quiz (question,answer) VALUES 
+﻿INSERT INTO mupquiz.quiz (question,answer) VALUES 
 ('What country has the second largest population in the world?','India')
 ,('In what country would you find the cities Glasgow and Edinburgh?','Scotland')
 ,('What country has a maple leaf on their national flag?','Canada')
