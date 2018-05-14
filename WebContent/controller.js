@@ -16,20 +16,26 @@ $(document).ready(function() {
 function dataLoaded(data){
 	for (var i = 0; i < data.quizSet.length; i++) {
 	    var question = data.quizSet[i];
-	    console.log(question);
 	}
 	quizSet = data.quizSet;
 	totalQn = data.quizSet.length;
-	currentQn = 0;
-	score = 0;
+	currentQn = data.currentQn;
+	score = data.score;
 	isQnLocked = false;
 	
-	console.log("totalQn: " + totalQn);
-	displayQuestion();
+	display();
+}
+
+function display() {
+	var isFinished = currentQn >= totalQn;
+	if (isFinished) {
+		displayEnd(stage);
+	} else {
+		displayQuestion();
+	}
 }
 
 function displayQuestion() {
-	console.log("displayQuestion current: " + currentQn);
 	clearDisplay();
 	
 	var questionTxt = document.querySelector(stage + " .questionText");
@@ -38,6 +44,20 @@ function displayQuestion() {
 	var submitBtn = document.querySelector(stage + " .submit");
 	submitBtn.onclick = submitClicked;
 }//display question
+
+function displayEnd(endStage) {
+	var endText = document.querySelector(endStage + " .endText");
+	endText.innerHTML = "You have finished the quiz!<br><br>Total questions:\t"+totalQn+"<br>Correct answers:\t"+score;
+	
+	var stage = document.querySelector(endStage + " .quiz");
+	stage.setAttribute('class', 'quiz nodisplay');
+	
+	var end = document.querySelector(endStage + " .end");
+	end.setAttribute('class', 'end');
+	
+	var resetBtn = document.querySelector(endStage + " .reset");
+	resetBtn.onclick = resetClicked;
+}
 
 function changeQuestion() {
 	if (stage == "#game1") {
@@ -48,13 +68,7 @@ function changeQuestion() {
 		stage = "#game1";
 	}
 	
-	var isFinished = currentQn >= totalQn;
-	console.log(currentQn + ", " + totalQn);
-	if (isFinished) {
-		displayEnd();
-	} else {
-		displayQuestion();
-	}
+	display();
 	
 	$(stage).animate({"right": "+=800px"}, "slow", function() { });
 	$(stage2).animate({"right": "+=800px"}, "slow", function() { $(stage2).css('right' , '-800px'); isQnLocked=false;} );
@@ -89,7 +103,7 @@ function submitClicked(e) {
 }
 
 function resetClicked() {
-	$.get('Reset', function(data) {});
+	window.location = "reset.jsp";
 }
 
 function showCorrect() {
@@ -119,15 +133,6 @@ function clearDisplay() {
 
 	var searchTerm = document.querySelector(stage + " input[name='answer']");
 	searchTerm.value = "";
-}
-
-function displayEnd() {
-	console.log("end");
-	var end = document.querySelector(stage2 + " .end");
-	end.setAttribute('class', 'end nodisplay');
-	
-	var resetBtn = document.querySelector(stage2 + " .reset");
-	resetBtn.onclick = resetClicked;
 }
 
 Date.prototype.timeNow = function () {

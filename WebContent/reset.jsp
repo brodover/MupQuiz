@@ -5,8 +5,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>mup's quiz</title>
+	<script src="jquery.js"></script>
 	<script type="text/javascript">
-		location.href = "/mupquiz";
+		$(document).ready(function() {
+			$.get('Reset', function(data) {
+				location.href = "/mupquiz";;
+		    });
+		});
+		
 	</script>
 </head>
 <body>

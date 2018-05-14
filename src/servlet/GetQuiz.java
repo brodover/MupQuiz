@@ -31,7 +31,6 @@ public class GetQuiz extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String message = controller.makeQuizSetINJsonString();
-		controller.softReset();
 		
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();

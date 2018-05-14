@@ -15,7 +15,7 @@
 	<div id="navContent">
 		<div id="game1">
 			<div class = "quiz">
-				<div class = "questionText"></div>
+				<div class = "questionText text"></div>
 				<div class="answer">
 					<form class="input-container">
 						<input class="target" type="text" name="answer" /><button class="submit">Submit</button>
@@ -25,14 +25,14 @@
 				<div class="feedback2">WRONG</div>
 			</div>
 			<div class = "end" >
-				<div class = "questionText">
+				<div class = "endText text">
 					You have finished the quiz!<br><br>Total questions:\t"+totalQn+"<br>Correct answers:\t"+score+"
 				</div><br><br><button class='reset'>Reset</button>
 			</div>
 		</div>
 		<div id="game2">
 			<div class = "quiz">
-				<div class = "questionText"></div>
+				<div class = "questionText text"></div>
 				<div class="answer">
 					<form class="input-container">
 						<input class="target" type="text" name="answer" /><button class="submit">Submit</button>
@@ -42,7 +42,7 @@
 				<div class="feedback2">WRONG</div>
 			</div>
 			<div class = "end" >
-				<div class = "questionText">
+				<div class = "endText text">
 					You have finished the quiz!<br><br>Total questions:\t"+totalQn+"<br>Correct answers:\t"+score+"
 				</div><br><br><button class='reset'>Reset</button>
 			</div>

@@ -53,16 +53,10 @@ public class Controller {
 
 	public void submitClicked(String userAw) {
 		userAw = userAw.toLowerCase(Locale.ROOT);
-		String correctAw = getQuizItem().getAnswer().toLowerCase(Locale.ROOT);
-		System.out.println(userAw + ", " + correctAw);
+		String correctAw = getQuizItem(questionNumber).getAnswer().toLowerCase(Locale.ROOT);
 		isCorrect = correctAw.equals(userAw);
 		if (isCorrect) score++;
 		questionNumber++;
-	}
-
-	public void softReset() {
-		questionNumber = 0;
-		score = 0;
 	}
 	
 	public void reset() {
@@ -71,13 +65,8 @@ public class Controller {
 		quizItems.shuffle();
 	}
 	
-	public QuizItem getQuizItem(int increment) {
-		int qnNum = questionNumber + increment;
-		return quizItems.get(qnNum);
-	}
-
-	public QuizItem getQuizItem() {
-		return getQuizItem(0);
+	public QuizItem getQuizItem(int index) {
+		return quizItems.get(index);
 	}
 	
 	public int getCurrentQnNum() {
@@ -113,6 +102,8 @@ public class Controller {
 			array.put(getQuizItem(i).getQuestion());
 		}
 		json.put("quizSet", array);
+		json.put("currentQn", getCurrentQnNum());
+		json.put("score", getScore());
 		
 		message = json.toString();
 		return message;
