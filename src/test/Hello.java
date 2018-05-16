@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Hello
+ * Servlet implementation class HelloWorld
  */
 @WebServlet("/Hello")
 public class Hello extends HttpServlet {
@@ -28,12 +28,38 @@ public class Hello extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		
-		out.print("<html><body>");
-		out.print("<h3>Hello Servlet</h3>");
-		out.print("</body></html>");
+		// TODO Auto-generated method stub
+
+	      // Set response content type
+	      response.setContentType("text/html");
+
+	      PrintWriter out = response.getWriter();
+	      String title = "Using GET Method to Read Form Data";
+	      String docType =
+	         "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
+	         
+	      out.println(docType +
+	         "<html>\n" +
+	            "<head><title>" + title + "</title></head>\n" +
+	            "<body bgcolor = \"#f0f0f0\">\n" +
+	               "<h1 align = \"center\">" + title + "</h1>\n" +
+	               "<ul>\n" +
+	                  "  <li><b>First Name</b>: "
+	                  + request.getParameter("first_name") + "\n" +
+	                  "  <li><b>Last Name</b>: "
+	                  + request.getParameter("last_name") + "\n" +
+	               "</ul>\n" +
+	            "</body>\n" +
+	         "</html>"
+	      );
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

@@ -33,18 +33,9 @@ public class GetQuiz extends HttpServlet {
 		String message = controller.makeQuizSetINJsonString();
 		
 		response.setContentType("application/json");
+		response.setBufferSize(8192);
 		PrintWriter out = response.getWriter();
 		out.print(message);
 		out.flush();
-		
-		// Will be available as ${<string>} in JSP
-//        request.setAttribute("quizItem1", controller.getQuizItem(-1));
-//        request.setAttribute("quizItem2", current);
-//        request.setAttribute("first", controller.isFirst());
-//        request.setAttribute("finished", controller.isFinished());
-//        request.setAttribute("totalQn", controller.getTotalQuestions());
-//        response.sendRedirect("/mupquiz/quiz.jsp");
-//        request.getRequestDispatcher("/quiz.jsp").forward(request, response);
-//        response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 }
